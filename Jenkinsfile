@@ -13,6 +13,7 @@ pipeline {
   stages {
     stage('Terraform Init') {
       steps {
+        sh "pwd"
         sh "terraform init -input=false"
       }
     }
