@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
         sh "cd DevSecOps-Labs"
-        sh "cp ${env.TF_HOME}/terraform ./
+        sh "cp ${env.TF_HOME}/terraform ./"
       }
     }
     stage('Terraform Init') {
