@@ -14,19 +14,18 @@ pipeline {
   stages {
     stage('Terraform Init') {
       steps {
-        sh "pwd"
         sh "${env.TF_HOME}/terraform init -input=false"
       }
     }
     stage('Terraform Plan') {
       steps {
-        sh "terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
+        sh "${env.TF_HOME}/terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
       }
     }
     stage('Terraform Apply') {
       steps {
         input 'Apply Plan'
-        sh "terraform apply -input=false tfplan"
+        sh "${env.TF_HOME}/terraform apply -input=false tfplan"
       }
     }
     stage('AWSpec Tests') {
