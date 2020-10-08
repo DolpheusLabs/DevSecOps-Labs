@@ -17,7 +17,8 @@ pipeline {
         sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
         sh "cd DevSecOps-Labs"
-        sh "cp /usr/local/bin/terraform /"
+        sh "cp /usr/local/bin/terraform ./"
+        sh "ls -la"
       }
     }
     stage('Terraform Init') {
