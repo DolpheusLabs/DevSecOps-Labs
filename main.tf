@@ -1,4 +1,5 @@
 provider "aws" {
+  version = 3.9
   profile = "default"
   region  = "us-west-2"
 }
