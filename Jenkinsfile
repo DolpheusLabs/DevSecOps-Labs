@@ -12,7 +12,7 @@ pipeline {
   }
   agent { label 'master' }
   stages {
-    stage('Git') {
+    stage('Environment Prep') {
       steps {
         sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
@@ -27,7 +27,7 @@ pipeline {
     }
     stage('Terraform Plan') {
       steps {
-        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
+        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false"
       }
     }
     stage('Terraform Apply') {
