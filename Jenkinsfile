@@ -12,20 +12,33 @@ pipeline {
   }
   agent { label 'master' }
   stages {
+    stage('Git') {
+      steps {
+        sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
+        sh "cd DevSecOps-Labs"
+        sh "cp ${env.TF_HOME}/terraform ./
+      }
+    }
     stage('Terraform Init') {
       steps {
-        sh "${env.TF_HOME}/terraform init -input=false"
+        sh "terraform init -input=false"
       }
     }
     stage('Terraform Plan') {
       steps {
-        sh "${env.TF_HOME}/terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
+        sh "terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
       }
     }
     stage('Terraform Apply') {
       steps {
         input 'Apply Plan'
-        sh "${env.TF_HOME}/terraform apply -input=false tfplan"
+        sh "terraform apply -input=false tfplan"
+      }
+    }
+    stage('Terraform Destroy') {
+      steps {
+        input 'Destroy Plan'
+        sh "terraform apply -auto-approve"
       }
     }
     stage('AWSpec Tests') {
