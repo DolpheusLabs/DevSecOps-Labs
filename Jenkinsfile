@@ -14,6 +14,7 @@ pipeline {
   stages {
     stage('Git') {
       steps {
+        sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
         sh "cd DevSecOps-Labs"
         sh "cp ${env.TF_HOME}terraform ./"
