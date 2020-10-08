@@ -17,8 +17,6 @@ pipeline {
         sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
         sh "cd DevSecOps-Labs"
-        sh "cp /usr/local/bin/terraform ./"
-        sh "ls -la"
       }
     }
     stage('Terraform Init') {
@@ -28,19 +26,20 @@ pipeline {
     }
     stage('Terraform Plan') {
       steps {
-        sh "terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
+        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
       }
     }
     stage('Terraform Apply') {
       steps {
         input 'Apply Plan'
-        sh "terraform apply -input=false tfplan"
+        sh "${env.TF_HOME}terraform apply -input=false tfplan"
+        sh "sleep 5"
       }
     }
     stage('Terraform Destroy') {
       steps {
         input 'Destroy Plan'
-        sh "terraform apply -auto-approve"
+        sh "${env.TF_HOME}terraform destroy -auto-approve"
       }
     }
     stage('AWSpec Tests') {
