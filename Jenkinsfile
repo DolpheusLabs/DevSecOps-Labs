@@ -30,13 +30,13 @@ pipeline {
     stage('Terraform Apply') {
       steps {
         input 'Apply Plan'
-        sh "${env.TF_HOME}terraform apply -input=false -auto-approve=true tfplan"
+        sh "${env.TF_HOME}terraform apply -input=false tfplan"
       }
     }
     stage('Terraform Destroy') {
       steps {
         input 'Destroy Plan'
-        sh "${env.TF_HOME}terraform destroy -input=false -auto-approve=true"
+        sh "${env.TF_HOME}terraform destroy -input=false"
       }
     }
     stage('AWSpec Tests') {
