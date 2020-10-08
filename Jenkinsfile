@@ -11,18 +11,21 @@ pipeline {
         sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
         sh "cp -r ./DevSecOps-Labs/* ./"
+        sh "cat dev.tfvars"
+        sh "cat /tmp/credentials.tfvars >> dev.tfvars"
+        sh "cat dev.tfvars"
       }
     }
     stage('Terraform Init') {
       steps {
         sh "ls -la"
         sh "echo $env.AWS_ACCESS_KEY_ID"
-        sh "${env.TF_HOME}terraform init -input=false"
+        sh "${env.TF_HOME}terraform init -input=false -var-file='dev.tfvars'"
       }
     }
     stage('Terraform Plan') {
       steps {
-        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
+        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false "
       }
     }
     stage('Terraform Apply') {
