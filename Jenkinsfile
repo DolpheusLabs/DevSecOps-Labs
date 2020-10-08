@@ -23,7 +23,7 @@ pipeline {
     }
     stage('Terraform Plan') {
       steps {
-        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false "
+        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
       }
     }
     stage('Terraform Apply') {
