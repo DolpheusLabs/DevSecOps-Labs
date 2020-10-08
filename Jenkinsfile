@@ -11,9 +11,7 @@ pipeline {
         sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
         sh "cp -r ./DevSecOps-Labs/* ./"
-        sh "cat dev.tfvars"
         sh "cat /tmp/credentials.tfvars >> dev.tfvars"
-        sh "cat dev.tfvars"
       }
     }
     stage('Terraform Init') {
