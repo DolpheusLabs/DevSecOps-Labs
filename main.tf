@@ -6,6 +6,9 @@ provider "aws" {
   secret_key = "${var.aws_secret_key}"
 }
 
+variable "aws_access_key" {}
+variable "aws_secret_key" {}
+
 resource "aws_s3_bucket" "testing" {
   bucket = "security-mountaineering-lab-bucket1"
   acl    = "public-read"
