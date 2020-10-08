@@ -22,7 +22,7 @@ pipeline {
     stage('Terraform Init') {
       steps {
         sh "ls -la"
-        sh "echo $AWS_ACCESS_KEY_ID"
+        sh "echo ${env.AWS_ACCESS_KEY_ID}"
         sh "${env.TF_HOME}terraform init -input=false"
       }
     }
