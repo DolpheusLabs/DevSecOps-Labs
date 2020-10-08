@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Terraform Plan') {
       steps {
-        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
+        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -auto-approve -var-file='dev.tfvars'"
       }
     }
     stage('Terraform Apply') {
@@ -37,7 +37,7 @@ pipeline {
     stage('Terraform Destroy') {
       steps {
         input 'Destroy Plan'
-        sh "${env.TF_HOME}terraform destroy -auto-approve"
+        sh "${env.TF_HOME}terraform destroy -input=false -auto-approve"
       }
     }
     stage('AWSpec Tests') {
