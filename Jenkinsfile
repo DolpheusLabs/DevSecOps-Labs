@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
-        sh "cp ./DevSecOps-Labs/* ./"
+        sh "cp -r ./DevSecOps-Labs/* ./"
       }
     }
     stage('Terraform Init') {
