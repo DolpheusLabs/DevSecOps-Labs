@@ -24,14 +24,13 @@ pipeline {
     }
     stage('Terraform Plan') {
       steps {
-        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -auto-approve -var-file='dev.tfvars'"
+        sh "${env.TF_HOME}terraform plan -out=tfplan -input=false -var-file='dev.tfvars'"
       }
     }
     stage('Terraform Apply') {
       steps {
         input 'Apply Plan'
-        sh "${env.TF_HOME}terraform apply -input=false tfplan"
-        sh "sleep 5"
+        sh "${env.TF_HOME}terraform apply -input=false -auto-approve tfplan"
       }
     }
     stage('Terraform Destroy') {
