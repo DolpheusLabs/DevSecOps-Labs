@@ -16,14 +16,11 @@ pipeline {
       steps {
         sh "rm -rf ./*"
         sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
-        sh "cd DevSecOps-Labs"
+        sh "cp ./DevSecOps-Labs/* ./"
       }
     }
     stage('Terraform Init') {
       steps {
-        sh "pwd"
-        sh "cd DevSecOps-Labs"
-        sh "pwd"
         sh "ls -la"
         sh "${env.TF_HOME}terraform init -input=false"
       }
