@@ -19,7 +19,6 @@ pipeline {
     stage('Terraform Init') {
       steps {
         sh "ls -la"
-        sh "echo $env.AWS_ACCESS_KEY_ID"
         sh "${env.TF_HOME}terraform init -input=false -var-file='dev.tfvars'"
       }
     }
