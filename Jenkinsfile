@@ -23,7 +23,7 @@ pipeline {
     }
     stage('Terraform Init') {
       steps {
-        sh "terraform init -input=false"
+        sh "${env.TF_HOME}terraform init -input=false"
       }
     }
     stage('Terraform Plan') {
