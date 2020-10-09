@@ -8,9 +8,8 @@ pipeline {
   stages {
     stage('Environment Prep') {
       steps {
-        sh "rm -rf ./*"
-        sh "git clone https://github.com/DolpheusLabs/DevSecOps-Labs"
-        sh "cp -r ./DevSecOps-Labs/* ./"
+        sh "ls -la"
+        sh "rm -rf DevSecOps-Labs"
         sh "cp /tmp/terraform.tfvars ./"
         sh "cat dev.tfvars >> terraform.tfvars && cat terraform.tfvars >> dev.tfvars"
       }
@@ -35,7 +34,7 @@ pipeline {
     stage('Terraform Destroy') {
       steps {
         input 'Destroy Plan'
-        sh "${env.TF_HOME}terraform destroy -input=false"
+        sh "${env.TF_HOME}terraform destroy -input=false -auto-approve=true"
       }
     }
     stage('AWSpec Tests') {
@@ -48,5 +47,10 @@ bundle exec rake spec || true
         junit(allowEmptyResults: true, testResults: '**/testResults/*.xml')
       }
     }
+    stage('Cleanup') {
+      steps {
+        sh "rm -rf ./*"
+      }
+  }
   }
 }
